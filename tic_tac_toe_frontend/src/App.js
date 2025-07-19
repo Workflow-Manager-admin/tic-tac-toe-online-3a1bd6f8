@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
-// Color palette
-const COLOR_PRIMARY = "#1976D2";
-const COLOR_SECONDARY = "#424242";
-const COLOR_ACCENT = "#FFD600";
-
 // Helper for deep copy
 function deepCopy(obj) {
   return JSON.parse(JSON.stringify(obj));
@@ -83,16 +78,18 @@ function Board({ board, winnerLine, onCellClick }) {
               className={`ttt-cell${isWinnerCell ? " ttt-cell-winner" : ""}`}
               key={`${i}-${j}`}
               onClick={() => onCellClick(i, j)}
+              aria-label={`cell ${i},${j}`}
               style={{
+                background: 'var(--cell-bg)',
                 color:
                   cell === "X"
-                    ? COLOR_PRIMARY
+                    ? 'var(--primary)'
                     : cell === "O"
-                    ? COLOR_SECONDARY
+                    ? 'var(--secondary)'
                     : undefined,
-                borderColor: COLOR_ACCENT,
+                borderColor: 'var(--accent)',
               }}
-              aria-label={`cell ${i},${j}`}
+              disabled={cell !== null}
             >
               {cell ? cell : ""}
             </button>
@@ -233,9 +230,9 @@ function App() {
         <button
           className={`move-btn${move === stepNumber ? " move-btn-active" : ""}`}
           style={{
-            color: move === stepNumber ? COLOR_PRIMARY : COLOR_SECONDARY,
-            borderColor: COLOR_ACCENT,
-            background: move === stepNumber ? "#fafafa" : "#fff",
+            borderColor: "var(--accent)",
+            background: move === stepNumber ? "var(--move-btn-active-bg)" : "var(--move-btn-bg)",
+            color: move === stepNumber ? "var(--primary)" : "var(--secondary)",
           }}
           onClick={() => jumpTo(move)}
         >
@@ -257,7 +254,7 @@ function App() {
     else status = `Next: ${xIsNext ? "You (X)" : "Computer (O)"}`;
   }
 
-  // Theme selection (uses CSS variables in App.css, integrating with existing system)
+  // Theme selection
   const [theme, setTheme] = useState('light');
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -271,20 +268,16 @@ function App() {
           className="theme-toggle"
           onClick={toggleTheme}
           aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-          style={{
-            background: COLOR_SECONDARY,
-            color: "#fff",
-          }}
         >
           {theme === "light" ? "🌙 Dark" : "☀️ Light"}
         </button>
         <div className="ttt-container">
-          <div className="ttt-status" style={{ color: COLOR_PRIMARY, borderColor: COLOR_ACCENT }}>
+          <div className="ttt-status" style={{ color: "var(--primary)", borderColor: "var(--accent)" }}>
             {status}
           </div>
           <div className="ttt-content-row">
-            <aside className="ttt-history" aria-label="Move history">
-              <div className="ttt-history-title" style={{ color: COLOR_SECONDARY }}>Move History</div>
+            <aside className="ttt-history" aria-label="Move history" style={{ background: "var(--history-bg)" }}>
+              <div className="ttt-history-title" style={{ color: "var(--secondary)" }}>Move History</div>
               <ol>{moves}</ol>
             </aside>
             <section className="ttt-center-block">
@@ -295,9 +288,9 @@ function App() {
                     className={`ttt-mode-btn${mode === "2P" ? " ttt-mode-btn-active" : ""}`}
                     onClick={() => setMode("2P")}
                     style={{
-                      background: mode === "2P" ? COLOR_PRIMARY : "#fff",
-                      color: mode === "2P" ? "#fff" : COLOR_PRIMARY,
-                      borderColor: COLOR_ACCENT,
+                      background: mode === "2P" ? "var(--primary)" : "var(--move-btn-bg)",
+                      color: mode === "2P" ? "var(--button-text)" : "var(--primary)",
+                      borderColor: "var(--accent)",
                     }}
                   >
                     2 Player
@@ -306,9 +299,9 @@ function App() {
                     className={`ttt-mode-btn${mode === "AI" ? " ttt-mode-btn-active" : ""}`}
                     onClick={() => setMode("AI")}
                     style={{
-                      background: mode === "AI" ? COLOR_PRIMARY : "#fff",
-                      color: mode === "AI" ? "#fff" : COLOR_PRIMARY,
-                      borderColor: COLOR_ACCENT,
+                      background: mode === "AI" ? "var(--primary)" : "var(--move-btn-bg)",
+                      color: mode === "AI" ? "var(--button-text)" : "var(--primary)",
+                      borderColor: "var(--accent)",
                     }}
                   >
                     Vs Computer
@@ -318,9 +311,9 @@ function App() {
                   className="ttt-restart-btn"
                   onClick={handleRestart}
                   style={{
-                    background: COLOR_ACCENT,
-                    color: COLOR_SECONDARY,
-                    borderColor: COLOR_SECONDARY,
+                    background: "var(--accent)",
+                    color: "var(--secondary)",
+                    borderColor: "var(--secondary)",
                     marginTop: 8,
                   }}
                   aria-label="Restart game"

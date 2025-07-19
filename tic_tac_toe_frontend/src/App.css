@@ -9,6 +9,37 @@
   --accent: #FFD600;
   --primary: #1976D2;
   --secondary: #424242;
+  --cell-bg: #fff;
+  --history-bg: #fff;
+  --move-btn-bg: #fff;
+  --move-btn-active-bg: #fafafa;
+  --cell-disabled-bg: #ececec;
+  --cell-disabled-text: #cccccc;
+}
+
+[data-theme='dark'] {
+  --bg-primary: #1f222a;
+  --bg-secondary: #23263a;
+  --text-primary: #f4f7fa;
+  --text-secondary: #c9cbce;
+  --border-color: #2c2e41;
+  --button-bg: #3157a2;
+  --button-text: #f4f7fa;
+  --accent: #ffd84b;
+  --primary: #8eb7ff;
+  --secondary: #e0f0ff;
+  --cell-bg: #191c24;
+  --history-bg: #212533;
+  --move-btn-bg: #282a44;
+  --move-btn-active-bg: #314080;
+  --cell-disabled-bg: #262b37;
+  --cell-disabled-text: #666e7c;
+}
+
+html,
+body,
+.App {
+  transition: background 0.25s, color 0.25s;
 }
 
 /* Main wrapper */
